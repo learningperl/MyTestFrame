@@ -1,9 +1,5 @@
 # -*- coding: UTF-8 -*-
-<<<<<<< HEAD
 import requests, json
-=======
-
->>>>>>> be01c1d6343e415d07f4ebeb2da7a7063144f4e9
 
 
 # 创建一个http接口请求的关键字类
@@ -17,14 +13,8 @@ class HTTP:
         self.jsonres = {}
         # 用来保存所需要的数据，实现关联
         self.params = {}
-<<<<<<< HEAD
 
     # 定义post实例方法，用来发送post请求
-=======
-		
-		
-	# 定义post实例方法，用来发送post请求
->>>>>>> be01c1d6343e415d07f4ebeb2da7a7063144f4e9
     def post(self, path, data=None):
         # 如果需要传参，就调用post，传递data
         if data is None:
@@ -39,8 +29,7 @@ class HTTP:
 
         self.jsonres = json.loads(result.text)
         print(self.jsonres)
-<<<<<<< HEAD
-
+        
     # 定义断言相等的关键字，用来判断json的key对应的值和期望值相等
     def assertequals(self, key, value):
         if str(self.jsonres[key]) == str(value):
@@ -79,5 +68,3 @@ class HTTP:
             httpparam[p[0]] = p[1]
 
         return httpparam
-=======
->>>>>>> be01c1d6343e415d07f4ebeb2da7a7063144f4e9
