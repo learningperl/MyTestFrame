@@ -6,46 +6,92 @@ import requests, json
 class HTTP:
 
     # 构造函数，实例化实例变量
-    def __init__(self):
+    def __init__(self,writer):
         # 创建session对象，模拟浏览器的cookie管理
         self.session = requests.session()
         # 存放json解析后的结果
         self.jsonres = {}
         # 用来保存所需要的数据，实现关联
         self.params = {}
+        # 全局的url
+        self.url = ''
+        # 写入结果的excel
+        self.writer = writer
+
+    # 设置地址
+    def seturl(self,url):
+        if url.startswith('http'):
+            self.url = url
+            self.writer.write(self.writer.row,self.writer.clo,'PASS')
+        else:
+            print('error：url地址不合法')
+            self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
+            self.writer.write(self.writer.row, self.writer.clo+1, 'error：url地址不合法')
 
     # 定义post实例方法，用来发送post请求
-    def post(self, path, data=None):
-        # 如果需要传参，就调用post，传递data
-        if data is None:
-            result = self.session.post(path)
-        else:
-            # 替换参数
-            data = self.__getparams(data)
-            # 转为字典
-            data = self.__todict(data)
-            # 发送请求
-            result = self.session.post(path, data=data)
+    def post(self, path, data=''):
+        """
+        # 定义post实例方法，用来发送post请求
+        :param path: url路径
+        :param data: 键值对传参的字符串
+        :return: 无返回值
+        """
+        try:
+            if not path.startswith('http'):
+                path = self.url + '/' + path
 
-        self.jsonres = json.loads(result.text)
-        print(self.jsonres)
+            # 如果需要传参，就调用post，传递data
+            if data == '':
+                result = self.session.post(path)
+            else:
+                # 替换参数
+                data = self.__getparams(data)
+                # 转为字典
+                data = self.__todict(data)
+                # 发送请求
+                result = self.session.post(path, data=data)
+
+            self.jsonres = json.loads(result.text)
+            self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            self.writer.write(self.writer.row, self.writer.clo+1, str(self.jsonres))
+        except Exception as e:
+            self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
+            self.writer.write(self.writer.row, self.writer.clo + 1, str(self.jsonres))
+            print(e)
 
     # 定义断言相等的关键字，用来判断json的key对应的值和期望值相等
     def assertequals(self, key, value):
-        if str(self.jsonres[key]) == str(value):
-            print('PASS')
+        res = ''
+        try:
+            res = str(self.jsonres[key])
+        except Exception as e:
+            print(e)
+
+        if res == str(value):
+            self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            self.writer.write(self.writer.row, self.writer.clo + 1, str(res))
         else:
-            print('FAIL')
+            self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
+            self.writer.write(self.writer.row, self.writer.clo + 1, str(res))
 
     # 给头添加一个键值对的关键字
     def addheader(self, key, value):
         value = self.__getparams(value)
         self.session.headers[key] = value
+        self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        self.writer.write(self.writer.row, self.writer.clo + 1, str(value))
 
     # 定义保存一个json值为参数的关键字
-    def savejson(self, p, key):
-        self.params[p] = self.jsonres[key]
-        print(self.params['t'])
+    def savejson(self, key, p):
+        res = ''
+        try:
+            res = self.jsonres[key]
+        except Exception as e:
+            print(e)
+
+        self.params[p] = res
+        self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        self.writer.write(self.writer.row, self.writer.clo + 1, str(res))
 
     # 获取参数里面的值
     def __getparams(self, s):
@@ -65,6 +111,10 @@ class HTTP:
         for ss in param:
             # 把键值对分开
             p = ss.split('=')
-            httpparam[p[0]] = p[1]
+            'Will、123456'
+            if len(p)>1:
+                httpparam[p[0]] = p[1]
+            else:
+                httpparam[p[0]] = ''
 
         return httpparam

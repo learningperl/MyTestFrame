@@ -15,7 +15,7 @@ class Logger:
             self.path = path
         # create logger
         # 这里可以修改开源模块的日志等级
-        logging.basicConfig(format='%(asctime)s - %(threadName)s - %(levelname)s - %(message)s',
+        logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
                             filename=self.path + "/lib/logs/all.log",
                             level=logging.ERROR)
         self.logger = logging.getLogger('frame log')
@@ -25,7 +25,7 @@ class Logger:
         ch = logging.StreamHandler()
         ch.setLevel(logging.DEBUG)
         # # add formatter to ch
-        formatter = logging.Formatter('%(asctime)s - %(threadName)s - %(levelname)s - %(message)s')
+        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
         ch.setFormatter(formatter)
         # add ch to logger
         self.logger.addHandler(ch)

@@ -1,6 +1,5 @@
 # coding:utf8
-import os
-import xlrd
+import os, xlrd
 from xlutils.copy import copy
 
 
@@ -10,18 +9,20 @@ class Reader:
            at 2018-12-21
         用来读取Excel文件内容
     """
+
     def __init__(self):
         # 整个excel工作簿缓存
         self.workbook = None
         # 当前工作sheet
         self.sheet = None
-        # 逐行读取时的行数
-        self.rows = 0
         # 当前sheet的行数
+        self.rows = 0
+        # 当前读取到的行数
         self.r = 0
 
     # 打开excel
     def open_excel(self, srcfile):
+        # 如果打开的文件不存在，就报错
         if not os.path.isfile(srcfile):
             print("error：%s not exist!" % (srcfile))
             return
@@ -38,9 +39,9 @@ class Reader:
         self.r = 0
         return
 
-    # 切换sheet页面
+    # 获取sheet页面
     def get_sheets(self):
-        # 获取所有sheet的名字，并返回
+        # 获取所有sheet的名字，并返回为一个列表
         sheets = self.workbook.sheet_names()
         print(sheets)
         return sheets
@@ -57,24 +58,18 @@ class Reader:
     def readline(self):
         row1 = None
 
-        # 如果当前还没到最后一行，则读取一行
+        # 如果当前还没到最后一行，则往下读取一行
         if self.r < self.rows:
+            # 读取第r行的内容
             row = self.sheet.row_values(self.r)
+            # 设置下一次读取r的下一行
             self.r = self.r + 1
+            # 辅助遍历行里面的列
             i = 0
             row1 = row
-            # 如果读取的是小数，则判断是不是整数
+            # 把读取的数据都变为字符串
             for strs in row:
-                if type(strs) == float:
-                    if strs == int(strs):
-                        # 如果是10.0这样的，则取整；如果要输入10.0，请使用在excel里面输入'10.0
-                        row1[i] = str(int(strs))
-                    else:
-                        # 其他数据，转为字符串
-                        row1[i] = str(strs)
-                else:
-                    row1[i] = strs
-
+                row1[i] = str(strs)
                 i = i + 1
         return row1
 
@@ -85,6 +80,7 @@ class Writer:
            at 2018-12-21
         用来复制写入Excel文件
     """
+
     def __init__(self):
         # 读取需要复制的excel
         self.workbook = None
@@ -113,12 +109,20 @@ class Writer:
         # 记录要保存的文件
         self.df = dstfile
         # 读取excel到缓存
+        # formatting_info带格式的复制
         self.workbook = xlrd.open_workbook(filename=srcfile, formatting_info=True)
         # 拷贝
         self.wb = copy(self.workbook)
         # 默认使用第一个sheet
         # sheet = wb.get_sheet('Sheet1')
         return
+
+    # 获取sheet页面
+    def get_sheets(self):
+        # 获取所有sheet的名字，并返回为一个列表
+        sheets = self.workbook.sheet_names()
+        print(sheets)
+        return sheets
 
     # 切换sheet页面
     def set_sheet(self, name):
@@ -133,7 +137,8 @@ class Writer:
             """ HACK: Extract the internal xlwt cell representation. """
             # 获取行
             row = sheet._Worksheet__rows.get(r)
-            if not row: return None
+            if not row:
+                return None
 
             # 获取单元格
             cell = row._Row__cells.get(c)
@@ -154,7 +159,7 @@ class Writer:
 
     # 保存
     def save_close(self):
-        # 保存复制后的文件
+        # 保存复制后的文件到硬盘
         self.wb.save(self.df)
         return
 
@@ -164,11 +169,15 @@ if __name__ == '__main__':
     reader = Reader()
     reader.open_excel('../lib/cases/HTTP接口用例.xls')
     sheetname = reader.get_sheets()
-    for i in range(reader.rows):
-        print(reader.readline())
+    for sheet in sheetname:
+        # 设置当前读取的sheet页面
+        reader.set_sheet(sheet)
+        for i in range(reader.rows):
+            print(reader.readline())
 
     writer = Writer()
     writer.copy_open('../lib/cases/HTTP接口用例.xls', '../lib/results/result-HTTP接口用例.xls')
+    sheetname = writer.get_sheets()
     writer.set_sheet(sheetname[0])
     writer.write(1, 1, 'William')
     writer.save_close()
