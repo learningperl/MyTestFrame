@@ -8,6 +8,7 @@ class Reader:
     """
         powered by Mr Will
            at 2018-12-21
+        用来读取Excel文件内容
     """
     def __init__(self):
         # 整个excel工作簿缓存
@@ -82,6 +83,7 @@ class Writer:
     """
         powered by Mr Will
            at 2018-12-21
+        用来复制写入Excel文件
     """
     def __init__(self):
         # 读取需要复制的excel
@@ -160,13 +162,13 @@ class Writer:
 # 调试
 if __name__ == '__main__':
     reader = Reader()
-    reader.open_excel('../lib/HTTP接口用例.xls')
+    reader.open_excel('../lib/cases/HTTP接口用例.xls')
     sheetname = reader.get_sheets()
     for i in range(reader.rows):
         print(reader.readline())
 
     writer = Writer()
-    writer.copy_open('../lib/HTTP接口用例.xls', '../lib/result-HTTP接口用例.xls')
+    writer.copy_open('../lib/cases/HTTP接口用例.xls', '../lib/results/result-HTTP接口用例.xls')
     writer.set_sheet(sheetname[0])
     writer.write(1, 1, 'William')
     writer.save_close()
