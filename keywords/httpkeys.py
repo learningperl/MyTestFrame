@@ -29,7 +29,7 @@ class HTTP:
 
         self.jsonres = json.loads(result.text)
         print(self.jsonres)
-        
+
     # 定义断言相等的关键字，用来判断json的key对应的值和期望值相等
     def assertequals(self, key, value):
         if str(self.jsonres[key]) == str(value):
