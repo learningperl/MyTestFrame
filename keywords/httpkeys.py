@@ -111,7 +111,6 @@ class HTTP:
         for ss in param:
             # 把键值对分开
             p = ss.split('=')
-            'Will、123456'
             if len(p)>1:
                 httpparam[p[0]] = p[1]
             else:
