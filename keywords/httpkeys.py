@@ -81,6 +81,12 @@ class HTTP:
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
         self.writer.write(self.writer.row, self.writer.clo + 1, str(value))
 
+    # 从头里面删除一个键值对
+    def removeheader(self,key):
+        self.session.headers.pop(key)
+        self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        self.writer.write(self.writer.row, self.writer.clo + 1, str(key))
+
     # 定义保存一个json值为参数的关键字
     def savejson(self, key, p):
         res = ''

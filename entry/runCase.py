@@ -2,6 +2,10 @@
 from common.Excel import Reader,Writer
 from keywords.httpkeys import HTTP
 import inspect
+from common import config
+from common.mysql import Mysql
+from common.excelresult import Res
+from common.mail import Mail
 
 
 # 反射获取关键字
@@ -83,4 +87,25 @@ def runCases():
     writer.save_close()
 
 
-runCases()
+if __name__ == '__main__':
+    config.get_config('../lib/conf/conf.txt')
+    # logger.info(config.config)
+    mysql = Mysql()
+    mysql.init_mysql('../lib/conf/userinfo.sql')
+    runCases()
+    res = Res()
+    r = res.get_res('../lib/results/result-HTTP接口用例.xls')
+    text = config.config['mailtext']
+    if r['status'] == 'PASS':
+        text = text.replace('status',r['status'])
+    else:
+        text = text.replace('<font style="font-weight: bold;font-size: 14px;color: #00d800;">status</font>','<font style="font-weight: bold;font-size: 14px;color: red;">Fail</font>')
+
+    text = text.replace('passrate', r['passrate'] + '%')
+    text = text.replace('casecount', r['casecount'])
+    print(text)
+    mail = Mail()
+    mail.send(text)
+
+
+
