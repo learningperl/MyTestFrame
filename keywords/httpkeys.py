@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
-import requests, json
+import requests, json, jsonpath
+from common import logger
 
 
 # 创建一个http接口请求的关键字类
@@ -17,6 +18,11 @@ class HTTP:
         self.url = ''
         # 写入结果的excel
         self.writer = writer
+        # 添加默认UA，模拟chrome浏览器
+        self.session.headers[
+            'User-Agent'] = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36'
+        # 添加默认的请求Content-type
+        self.session.headers['Content-type'] = 'application/x-www-form-urlencoded'
 
     # 设置地址
     def seturl(self,url):
@@ -24,7 +30,7 @@ class HTTP:
             self.url = url
             self.writer.write(self.writer.row,self.writer.clo,'PASS')
         else:
-            print('error：url地址不合法')
+            logger.error('error：url地址不合法')
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo+1, 'error：url地址不合法')
 
@@ -51,21 +57,29 @@ class HTTP:
                 # 发送请求
                 result = self.session.post(path, data=data)
 
-            self.jsonres = json.loads(result.text)
+            res = result.text
+            try:
+                res = res[res.find('{'):res.rfind('}') + 1]
+            except Exception as e:
+                logger.exception(e)
+
+            self.jsonres = json.loads(res)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
             self.writer.write(self.writer.row, self.writer.clo+1, str(self.jsonres))
         except Exception as e:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(self.jsonres))
-            print(e)
+            logger.exception(e)
 
     # 定义断言相等的关键字，用来判断json的key对应的值和期望值相等
-    def assertequals(self, key, value):
-        res = ''
+    def assertequals(self, jsonpaths, value):
+        res = 'None'
         try:
-            res = str(self.jsonres[key])
+            res = str(jsonpath.jsonpath(self.jsonres, jsonpaths)[0])
         except Exception as e:
-            print(e)
+            logger.exception(e)
+
+        value = self.__getparams(value)
 
         if res == str(value):
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
@@ -93,7 +107,7 @@ class HTTP:
         try:
             res = self.jsonres[key]
         except Exception as e:
-            print(e)
+            logger.exception(e)
 
         self.params[p] = res
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
@@ -101,7 +115,7 @@ class HTTP:
 
     # 获取参数里面的值
     def __getparams(self, s):
-        print(self.params)
+        logger.info(self.params)
         for key in self.params:
             s = s.replace('{' + key + '}', self.params[key])
 

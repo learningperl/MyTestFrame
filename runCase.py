@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from common.Excel import Reader,Writer
 from keywords.httpkeys import HTTP
+from keywords.soapkeys import SOAP
 import inspect
 from common import config
 from common.mysql import Mysql
@@ -61,9 +62,9 @@ def run(func, lenargs, line):
 def runCases():
     reader = Reader()
     writer = Writer()
-    http = HTTP(writer)
-    reader.open_excel('../lib/cases/HTTP接口用例.xls')
-    writer.copy_open('../lib/cases/HTTP接口用例.xls', '../lib/results/result-HTTP接口用例.xls')
+    soap = SOAP(writer)
+    reader.open_excel('./lib/cases/SOAP接口用例.xls')
+    writer.copy_open('./lib/cases/SOAP接口用例.xls', './lib/results/result-SOAP接口用例.xls')
     sheetname = reader.get_sheets()
     for sheet in sheetname:
         # 设置当前读写的sheet页面
@@ -80,7 +81,7 @@ def runCases():
             else:
                 print(line)
                 writer.row = i
-                func = geffunc(line, http)
+                func = geffunc(line, soap)
                 lenargs = getargs(func)
                 run(func, lenargs, line)
 
@@ -88,13 +89,13 @@ def runCases():
 
 
 if __name__ == '__main__':
-    config.get_config('../lib/conf/conf.txt')
+    config.get_config('./lib/conf/conf.txt')
     # logger.info(config.config)
     mysql = Mysql()
-    mysql.init_mysql('../lib/conf/userinfo.sql')
+    mysql.init_mysql('./lib/conf/userinfo.sql')
     runCases()
     res = Res()
-    r = res.get_res('../lib/results/result-HTTP接口用例.xls')
+    r = res.get_res('./lib/results/result-HTTP接口用例.xls')
     text = config.config['mailtext']
     if r['status'] == 'PASS':
         text = text.replace('status',r['status'])
