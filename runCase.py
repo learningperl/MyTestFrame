@@ -71,7 +71,7 @@ def runCases():
     global casepath,resultpath
     reader = Reader()
     writer = Writer()
-    web = Web(writer)
+    http = HTTP(writer)
     reader.open_excel(casepath)
     writer.copy_open(casepath, resultpath)
     sheetname = reader.get_sheets()
@@ -90,7 +90,7 @@ def runCases():
             else:
                 logger.info(line)
                 writer.row = i
-                func = geffunc(line, web)
+                func = geffunc(line, http)
                 lenargs = getargs(func)
                 run(func, lenargs, line)
 
