@@ -71,7 +71,7 @@ def runCases():
     global casepath,resultpath
     reader = Reader()
     writer = Writer()
-    http = HTTP(writer)
+    web = Web(writer)
     reader.open_excel(casepath)
     writer.copy_open(casepath, resultpath)
     sheetname = reader.get_sheets()
@@ -90,7 +90,7 @@ def runCases():
             else:
                 logger.info(line)
                 writer.row = i
-                func = geffunc(line, http)
+                func = geffunc(line, web)
                 lenargs = getargs(func)
                 run(func, lenargs, line)
 
@@ -105,8 +105,8 @@ if __name__ == '__main__':
 
     # 为空，则使用默认的
     if casepath == '':
-        casepath = path + '/lib/cases/HTTP接口用例.xls'
-        resultpath = path + '/lib/results/result-HTTP接口用例.xls'
+        casepath = path + '/lib/cases/web自动化用例.xls'
+        resultpath = path + '/lib/results/result-web自动化用例.xls'
     else:
         # 如果是绝对路径，就使用绝对路径
         if casepath.find(':') >= 0:
