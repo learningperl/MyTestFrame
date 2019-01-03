@@ -105,8 +105,8 @@ if __name__ == '__main__':
 
     # 为空，则使用默认的
     if casepath == '':
-        casepath = path + '/lib/cases/web自动化用例.xls'
-        resultpath = path + '/lib/results/result-web自动化用例.xls'
+        casepath = path + '/lib/cases/HTTP接口用例.xls'
+        resultpath = path + '/lib/results/result-HTTP接口用例.xls'
     else:
         # 如果是绝对路径，就使用绝对路径
         if casepath.find(':') >= 0:
