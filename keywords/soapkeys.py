@@ -6,6 +6,9 @@ from suds.xsd.doctor import ImportDoctor, Import
 
 
 class SOAP:
+    """
+        创建一个webservice接口请求的关键字类
+    """
 
     def __init__(self, writer):
         # 文档标准

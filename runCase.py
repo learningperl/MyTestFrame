@@ -1,12 +1,20 @@
 # -*- coding: UTF-8 -*-
-from common.Excel import Reader,Writer
+from common.Excel import Reader, Writer
 from keywords.httpkeys import HTTP
 from keywords.soapkeys import SOAP
-import inspect
+from keywords.webkeys import Web
+import inspect, sys
 from common import config
 from common.mysql import Mysql
 from common.excelresult import Res
 from common.mail import Mail
+from common import logger
+
+# 运行的相对路径
+path = '.'
+# 用例路径
+casepath = ''
+resultpath = ''
 
 
 # 反射获取关键字
@@ -60,11 +68,12 @@ def run(func, lenargs, line):
 
 # 运行用例
 def runCases():
+    global casepath,resultpath
     reader = Reader()
     writer = Writer()
-    soap = SOAP(writer)
-    reader.open_excel('./lib/cases/SOAP接口用例.xls')
-    writer.copy_open('./lib/cases/SOAP接口用例.xls', './lib/results/result-SOAP接口用例.xls')
+    web = Web(writer)
+    reader.open_excel(casepath)
+    writer.copy_open(casepath, resultpath)
     sheetname = reader.get_sheets()
     for sheet in sheetname:
         # 设置当前读写的sheet页面
@@ -79,9 +88,9 @@ def runCases():
             if len(line[0]) > 0 or len(line[1]) > 0:
                 pass
             else:
-                print(line)
+                logger.info(line)
                 writer.row = i
-                func = geffunc(line, soap)
+                func = geffunc(line, web)
                 lenargs = getargs(func)
                 run(func, lenargs, line)
 
@@ -89,24 +98,39 @@ def runCases():
 
 
 if __name__ == '__main__':
-    config.get_config('./lib/conf/conf.txt')
+    try:
+        casepath = sys.argv[1]
+    except:
+        casepath = ''
+
+    # 为空，则使用默认的
+    if casepath == '':
+        casepath = path + '/lib/cases/web自动化用例.xls'
+        resultpath = path + '/lib/results/result-web自动化用例.xls'
+    else:
+        # 如果是绝对路径，就使用绝对路径
+        if casepath.find(':') >= 0:
+            #获取用例文件名
+            resultpath = path + '/lib/results/result-' + casepath[casepath.rfind('\\')+1:]
+        else:
+            logger.error('非法用例路径')
+
+    config.get_config(path + '/lib/conf/conf.txt')
     # logger.info(config.config)
     mysql = Mysql()
-    mysql.init_mysql('./lib/conf/userinfo.sql')
+    mysql.init_mysql(path + '/lib/conf/userinfo.sql')
     runCases()
     res = Res()
-    r = res.get_res('./lib/results/result-HTTP接口用例.xls')
+    r = res.get_res(resultpath)
     text = config.config['mailtext']
-    if r['status'] == 'PASS':
-        text = text.replace('status',r['status'])
+    if r['status'] == 'Pass':
+        text = text.replace('status', r['status'])
     else:
-        text = text.replace('<font style="font-weight: bold;font-size: 14px;color: #00d800;">status</font>','<font style="font-weight: bold;font-size: 14px;color: red;">Fail</font>')
+        text = text.replace('<font style="font-weight: bold;font-size: 14px;color: #00d800;">status</font>',
+                            '<font style="font-weight: bold;font-size: 14px;color: red;">Fail</font>')
 
     text = text.replace('passrate', r['passrate'] + '%')
     text = text.replace('casecount', r['casecount'])
     print(text)
     mail = Mail()
     mail.send(text)
-
-
-

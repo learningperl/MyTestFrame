@@ -3,9 +3,10 @@ import requests, json, jsonpath
 from common import logger
 
 
-# 创建一个http接口请求的关键字类
 class HTTP:
-
+    """
+        创建一个http接口请求的关键字类
+    """
     # 构造函数，实例化实例变量
     def __init__(self,writer):
         # 创建session对象，模拟浏览器的cookie管理
