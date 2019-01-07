@@ -28,6 +28,12 @@ class Res:
 
         reader = Reader()
         reader.open_excel(result_path)
+        reader.readline()
+        line = reader.readline()
+        self.sumarry['runtype'] = line[1]
+        self.sumarry['title'] = line[2]
+        self.sumarry['starttime'] = line[3]
+        self.sumarry['endtime'] = line[4]
         # 获取所有sheet页面
         for n in reader.get_sheets():
             # logger.info(n)

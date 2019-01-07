@@ -3,12 +3,14 @@ from common.Excel import Reader, Writer
 from keywords.httpkeys import HTTP
 from keywords.soapkeys import SOAP
 from keywords.webkeys import Web
+from keywords.appkeys import APP
 import inspect, sys
 from common import config
 from common.mysql import Mysql
 from common.excelresult import Res
 from common.mail import Mail
 from common import logger
+import datetime
 
 # 运行的相对路径
 path = '.'
@@ -73,8 +75,24 @@ def runCases():
     writer = Writer()
     web = Web(writer)
     reader.open_excel(casepath)
+    # 第一行
+    reader.readline()
+    # 第二行
+    line = reader.readline()
+    runtype = line[1]
+    if runtype == 'WEB':
+        obj = Web(writer)
+    if runtype == 'APP':
+        obj = APP(writer)
+    if runtype == 'HTTP':
+        obj = HTTP(writer)
+    if runtype == 'SOAP':
+        obj = SOAP(writer)
+
     writer.copy_open(casepath, resultpath)
     sheetname = reader.get_sheets()
+    writer.set_sheet(sheetname[0])
+    writer.write(1, 3, str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     for sheet in sheetname:
         # 设置当前读写的sheet页面
         reader.set_sheet(sheet)
@@ -90,10 +108,12 @@ def runCases():
             else:
                 logger.info(line)
                 writer.row = i
-                func = geffunc(line, web)
+                func = geffunc(line, obj)
                 lenargs = getargs(func)
                 run(func, lenargs, line)
 
+    writer.set_sheet(sheetname[0])
+    writer.write(1, 4, str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     writer.save_close()
 
 
@@ -131,6 +151,10 @@ if __name__ == '__main__':
 
     text = text.replace('passrate', r['passrate'] + '%')
     text = text.replace('casecount', r['casecount'])
+    text = text.replace('title', r['title'])
+    text = text.replace('runtype', r['runtype'])
+    text = text.replace('starttime', r['starttime'])
+    text = text.replace('endtime', r['endtime'])
     print(text)
     mail = Mail()
     mail.send(text)

@@ -21,9 +21,21 @@ class Web:
         self.params = {}
 
     # 定义函数，专门用来打开浏览器
-    def openbrowser(self, b, dpath, t):
+    def openbrowser(self, b='', dpath='', t=''):
+        """
+        :param b: 浏览器类型：cc,ff,ie
+        :param dpath: webdriver的地址
+        :param t: 隐式等待的实际
+        :return: 返回操作浏览器的driver
+        """
         if t == '':
             t = 10
+
+        try:
+            t = int(t)
+        except:
+            t = 10
+
         if dpath == '':
             dpath = './lib/'
 
@@ -169,6 +181,31 @@ class Web:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
 
+    def __find_element(self, locator):
+        """
+        内部用来查找元素的方法
+        支持使用三种主流查找方式
+        :param locator: 支持输入xpath，id，content-desc
+        :return:
+        """
+        try:
+            if locator.startswith('/'):
+                ele = self.driver.find_element_by_xpath(locator)
+            else:
+                try:
+                    # 尝试用id定位
+                    ele = self.driver.find_element_by_id(locator)
+                except:
+                    try:
+                        # 尝试用name定位
+                        ele = self.driver.find_element_by_name(locator)
+                    except:
+                        return None
+        except Exception as e:
+            logger.exception(e)
+            return None
+        return ele
+
     def intoiframe(self, locator):
         """
         通过定位到iframe，再进入iframe
@@ -177,33 +214,7 @@ class Web:
         :param locator: 元素的定位器（支持id，name，xpath）
         :return: 无
         """
-        if locator.find('/') < 0:
-            # 如果不是xpath
-            try:
-                # 尝试用id定位
-                ele = self.driver.find_element_by_id(locator)
-            except:
-                try:
-                    # 尝试用name定位
-                    ele = self.driver.find_element_by_name(locator)
-                except Exception as e:
-                    logger.exception(e)
-                    self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
-                    self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
-                    # 定位失败，则直接返回
-                    return
-
-        else:
-            # 如果是xpath
-            try:
-                ele = self.driver.find_element_by_xpath(locator)
-            except Exception as e:
-                logger.exception(e)
-                self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
-                self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
-                # 定位失败，则直接返回
-                return
-
+        ele = self.__find_element(locator)
         try:
             # 根据定位，切换iframe
             self.driver.switch_to.frame(ele)

@@ -11,17 +11,17 @@ path = '.'
 logger = None
 # create logger
 # 这里可以修改开源模块的日志等级
-logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
-                filename=path + "/lib/logs/all.log",
-                level=logging.ERROR)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+c = logging.FileHandler(path + "/lib/logs/all.log", mode='a', encoding='utf8')
 logger = logging.getLogger('frame log')
 logger.setLevel(logging.DEBUG)
+c.setFormatter(formatter)
+logger.addHandler(c)
 
 # create console handler and set level to debug
 ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
 # # add formatter to ch
-formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 # add ch to logger
 logger.addHandler(ch)
