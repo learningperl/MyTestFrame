@@ -72,12 +72,11 @@
 # soap.callmethod('login','Tester、123456')
 # soap.callmethod('logout')
 
-import requests
-
-session = requests.session()
-
-result = session.get('https://ke.qq.com/course/list/特斯汀学院?tuin=3ec2bac8')
-print(result.text)
-
+# import requests
+#
+# session = requests.session()
+#
+# result = session.get('https://ke.qq.com/course/list/特斯汀学院?tuin=3ec2bac8')
+# print(result.text)
 
 

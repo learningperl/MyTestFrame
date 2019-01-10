@@ -4,13 +4,12 @@ from keywords.httpkeys import HTTP
 from keywords.soapkeys import SOAP
 from keywords.webkeys import Web
 from keywords.appkeys import APP
-import inspect, sys
+import inspect, sys, datetime
 from common import config
 from common.mysql import Mysql
 from common.excelresult import Res
 from common.mail import Mail
 from common import logger
-import datetime
 
 # 运行的相对路径
 path = '.'
@@ -70,7 +69,7 @@ def run(func, lenargs, line):
 
 # 运行用例
 def runCases():
-    global casepath,resultpath
+    global casepath, resultpath
     reader = Reader()
     writer = Writer()
     web = Web(writer)
@@ -130,8 +129,8 @@ if __name__ == '__main__':
     else:
         # 如果是绝对路径，就使用绝对路径
         if casepath.find(':') >= 0:
-            #获取用例文件名
-            resultpath = path + '/lib/results/result-' + casepath[casepath.rfind('\\')+1:]
+            # 获取用例文件名
+            resultpath = path + '/lib/results/result-' + casepath[casepath.rfind('\\') + 1:]
         else:
             logger.error('非法用例路径')
 
