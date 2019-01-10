@@ -49,5 +49,7 @@ class TestWeb(unittest.TestCase):
             # print(func)
             lenargs = datadriven.getargs(func)
             # 反射执行
-            datadriven.run(func, lenargs, line)
+            res = datadriven.run(func, lenargs, line)
+            if res is False:
+                self.fail('关键字执行失败')
 

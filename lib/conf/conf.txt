@@ -9,8 +9,6 @@ mysqlcharset=utf8
 mail=m18570394312_1@163.com
 #如果是qq邮箱，请填写授权码
 pwd=dongnao001
-#mail=1508353980@qq.com
-#pwd=ongoauxowrokieii
 mailto=1052949192@qq.com
 mailcopy=i_wanting@yeah.net,873403874@qq.com,m18570394312_1@163.com
 mail_encoding=utf8

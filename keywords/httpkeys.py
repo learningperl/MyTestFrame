@@ -30,10 +30,12 @@ class HTTP:
         if url.startswith('http'):
             self.url = url
             self.writer.write(self.writer.row,self.writer.clo,'PASS')
+            return True
         else:
             logger.error('error：url地址不合法')
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo+1, 'error：url地址不合法')
+            return False
 
     # 定义post实例方法，用来发送post请求
     def post(self, path, data=''):
@@ -67,10 +69,12 @@ class HTTP:
             self.jsonres = json.loads(res)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
             self.writer.write(self.writer.row, self.writer.clo+1, str(self.jsonres))
+            return True
         except Exception as e:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(self.jsonres))
             logger.exception(e)
+            return False
 
     # 定义断言相等的关键字，用来判断json的key对应的值和期望值相等
     def assertequals(self, jsonpaths, value):
@@ -85,9 +89,11 @@ class HTTP:
         if res == str(value):
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(res))
+            return True
         else:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(res))
+            return False
 
     # 给头添加一个键值对的关键字
     def addheader(self, key, value):
@@ -95,12 +101,14 @@ class HTTP:
         self.session.headers[key] = value
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
         self.writer.write(self.writer.row, self.writer.clo + 1, str(value))
+        return True
 
     # 从头里面删除一个键值对
     def removeheader(self,key):
         self.session.headers.pop(key)
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
         self.writer.write(self.writer.row, self.writer.clo + 1, str(key))
+        return True
 
     # 定义保存一个json值为参数的关键字
     def savejson(self, key, p):
@@ -113,6 +121,7 @@ class HTTP:
         self.params[p] = res
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
         self.writer.write(self.writer.row, self.writer.clo + 1, str(res))
+        return True
 
     # 获取参数里面的值
     def __getparams(self, s):

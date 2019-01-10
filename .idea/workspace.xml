@@ -2,20 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e799292e-fef3-45b2-bbdf-f5364947fdbf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/myunittest/WebTest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myunittest/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myunittest/datadriven.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myunittest/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runUnitTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/mail.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/mail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keywords/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/keywords/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/cases/web自动化用例.xls" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cases/web自动化用例.xls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/logs/all.log" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logs/all.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/results/result-web自动化用例.xls" beforeDir="false" afterPath="$PROJECT_DIR$/lib/results/result-web自动化用例.xls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runCase.py" beforeDir="false" afterPath="$PROJECT_DIR$/runCase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keywords/appkeys.py" beforeDir="false" afterPath="$PROJECT_DIR$/keywords/appkeys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keywords/httpkeys.py" beforeDir="false" afterPath="$PROJECT_DIR$/keywords/httpkeys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keywords/soapkeys.py" beforeDir="false" afterPath="$PROJECT_DIR$/keywords/soapkeys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keywords/webkeys.py" beforeDir="false" afterPath="$PROJECT_DIR$/keywords/webkeys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/conf/conf.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/conf/conf.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,8 +15,45 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExportTestResults" outputFolder="$PROJECT_DIR$" userTempatePath="" />
+  <component name="FavoritesManager">
+    <favorites_list name="MyTestFrame" />
+  </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/conf/conf.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/keywords/soapkeys.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="233">
+              <caret line="142" column="19" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="19" />
+              <folding>
+                <element signature="e#24#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/keywords/webkeys.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="233">
+              <caret line="385" column="24" selection-start-line="385" selection-start-column="24" selection-end-line="385" selection-end-column="24" />
+              <folding>
+                <element signature="e#24#54#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -72,16 +100,11 @@
         <option value="$PROJECT_DIR$/common/mysql.py" />
         <option value="D:/drozer/Python3/Lib/site-packages/jsonpath.py" />
         <option value="$PROJECT_DIR$/entry/test.py" />
-        <option value="$PROJECT_DIR$/lib/conf/conf.txt" />
         <option value="$PROJECT_DIR$/keywords/web.py" />
-        <option value="$PROJECT_DIR$/keywords/httpkeys.py" />
-        <option value="$PROJECT_DIR$/keywords/soapkeys.py" />
         <option value="$PROJECT_DIR$/entry/runCase.py" />
-        <option value="$PROJECT_DIR$/keywords/appkeys.py" />
         <option value="$PROJECT_DIR$/lib/logs/all.log" />
         <option value="$PROJECT_DIR$/keywords/testweb.py" />
         <option value="$PROJECT_DIR$/testweb.py" />
-        <option value="$PROJECT_DIR$/keywords/webkeys.py" />
         <option value="$PROJECT_DIR$/common/excelresult.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/myunittest/tests.py" />
@@ -101,21 +124,25 @@
         <option value="$PROJECT_DIR$/runUnitTest.py" />
         <option value="$PROJECT_DIR$/common/mail.py" />
         <option value="$PROJECT_DIR$/common/logger.py" />
+        <option value="$PROJECT_DIR$/lib/conf/conf.txt" />
+        <option value="$PROJECT_DIR$/keywords/appkeys.py" />
+        <option value="$PROJECT_DIR$/keywords/httpkeys.py" />
+        <option value="$PROJECT_DIR$/keywords/soapkeys.py" />
+        <option value="$PROJECT_DIR$/keywords/webkeys.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="448" />
-    <option name="y" value="47" />
-    <option name="width" value="1392" />
-    <option name="height" value="978" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="447" />
+    <option name="y" value="46" />
+    <option name="width" value="1393" />
+    <option name="height" value="979" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -126,17 +153,13 @@
             <path>
               <item name="MyTestFrame" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyTestFrame" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyTestFrame" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyTestFrame" type="462c0819:PsiDirectoryNode" />
               <item name="keywords" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -332,9 +355,9 @@
       <item itemvalue="Python.mail" />
       <item itemvalue="Python.runUnitTest (2)" />
       <item itemvalue="Python.run" />
+      <item itemvalue="Python.test (1)" />
       <item itemvalue="Python tests.Unittests for test.MyTest" />
       <item itemvalue="Python tests.Unittests for Pramatest.PramaTest.test_add" />
-      <item itemvalue="Python.test (1)" />
     </list>
     <recent_temporary>
       <list>
@@ -401,11 +424,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="359" y="38" width="1113" height="782" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.3054782" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49923196" visible="true" weight="0.21730515" />
+      <window_info id="Structure" order="1" sideWeight="0.50076807" side_tool="true" weight="0.3051948" />
+      <window_info id="Favorites" order="2" sideWeight="0.50076807" side_tool="true" weight="0.3051948" />
       <window_info anchor="bottom" id="Messages" order="0" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.3286119" />
@@ -413,11 +436,11 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="6" weight="0.6697531" />
-      <window_info anchor="bottom" id="TODO" order="7" weight="0.3287037" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.32718894" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32872504" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32872504" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="11" />
+      <window_info anchor="bottom" id="Python Console" order="11" weight="0.32872504" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -518,13 +541,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/conf/conf.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/drozer/Python3/Lib/site-packages/selenium/webdriver/support/event_firing_webdriver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="113">
@@ -550,26 +566,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/testweb.py" />
-    <entry file="file://$PROJECT_DIR$/keywords/soapkeys.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3418">
-          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-          <folding>
-            <element signature="e#24#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/keywords/appkeys.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1762">
-          <caret line="138" column="31" selection-start-line="138" selection-start-column="31" selection-end-line="138" selection-end-column="31" />
-          <folding>
-            <element signature="e#24#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/mysql.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1174">
@@ -681,20 +677,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test Results - Unittests_for_test_MyTest.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Test Results - Unittests_for_Pramatest_PramaTest_test_add.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="8" column="11" lean-forward="true" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Test Results - Unittests_for_test_MyTest.html" />
+    <entry file="file://$PROJECT_DIR$/Test Results - Unittests_for_Pramatest_PramaTest_test_add.html" />
     <entry file="file://$PROJECT_DIR$/myunittest/test.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -722,26 +706,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
           <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/keywords/webkeys.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7028">
-          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
-          <folding>
-            <element signature="e#24#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/keywords/httpkeys.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="115" lean-forward="true" selection-start-line="113" selection-start-column="8" selection-end-line="115" />
-          <folding>
-            <element signature="e#24#55#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -822,6 +786,53 @@
           <caret line="51" column="20" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keywords/appkeys.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3985">
+          <caret line="224" column="19" selection-start-line="224" selection-start-column="19" selection-end-line="224" selection-end-column="19" />
+          <folding>
+            <element signature="e#24#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keywords/httpkeys.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="919">
+          <caret line="123" column="19" selection-start-line="123" selection-start-column="19" selection-end-line="123" selection-end-column="19" />
+          <folding>
+            <element signature="e#24#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/conf/conf.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keywords/soapkeys.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="142" column="19" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="19" />
+          <folding>
+            <element signature="e#24#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keywords/webkeys.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="385" column="24" selection-start-line="385" selection-start-column="24" selection-end-line="385" selection-end-column="24" />
+          <folding>
+            <element signature="e#24#54#0" expanded="true" />
           </folding>
         </state>
       </provider>

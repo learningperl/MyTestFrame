@@ -87,31 +87,37 @@ class Web:
     def openurl(self, url):
         self.driver.get(url)
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        return True
 
     # 点击关键字，根据xpath定位
     def click(self, xpath):
         try:
             self.driver.find_element_by_xpath(xpath).click()
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
+            return False
 
     # 向输入框输入的关键字，根据xpath定位
     def inputtext(self, xpath, value):
         try:
             self.driver.find_element_by_xpath(xpath).send_keys(value)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
+            return False
 
     # 关闭浏览器
     def quit(self):
         self.driver.quit()
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        return True
 
     # 强制等待
     def sleep(self, t):
@@ -124,6 +130,7 @@ class Web:
 
         time.sleep(t)
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        return True
 
     # 根据窗口顺序切换窗口
     def switchwindow(self, idx):
@@ -138,10 +145,12 @@ class Web:
         try:
             self.driver.switch_to.window(handles[idx])
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
+            return False
 
     def closewindow(self, cidx, oidx):
         """
@@ -157,7 +166,7 @@ class Web:
             cidx = 0
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
-            return
+            return False
 
         # 默认切回第0个参数
         try:
@@ -176,10 +185,12 @@ class Web:
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
             # 切换到关闭后，需要操作的窗口
             self.driver.switch_to.window(handles[oidx])
+            return True
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
+            return False
 
     def __find_element(self, locator):
         """
@@ -219,11 +230,13 @@ class Web:
             # 根据定位，切换iframe
             self.driver.switch_to.frame(ele)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
         except Exception as e:
             # 定位失败，则写入失败信息
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
+            return False
 
     def outiframe(self):
         """
@@ -232,6 +245,7 @@ class Web:
         """
         self.driver.switch_to.default_content()
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        return True
 
     def hover(self, xpath):
         """
@@ -248,17 +262,18 @@ class Web:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
             # 定位失败，则直接返回
-            return
+            return False
         try:
             actions = ActionChains(self.driver)
             actions.move_to_element(ele).perform()
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
             # 定位失败，则直接返回
-            return
+            return False
 
     def scroll(self, x, y):
         """
@@ -277,6 +292,7 @@ class Web:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
+            return False
 
     def excutejs(self, js):
         """
@@ -287,12 +303,13 @@ class Web:
         try:
             self.driver.execute_script(js)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
             # 定位失败，则直接返回
-            return
+            return False
 
     def uploadfile(self, xpath, filepath):
         """
@@ -309,14 +326,16 @@ class Web:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
             # 定位失败，则直接返回
-            return
+            return False
         try:
             ele.send_keys(filepath)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
+            return False
 
     def gettitle(self):
         """
@@ -327,6 +346,7 @@ class Web:
         title = self.driver.title
         self.params['title'] = title
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        return True
 
     def gettext(self, xpath):
         """
@@ -340,10 +360,12 @@ class Web:
             text = self.driver.find_element_by_xpath(xpath).text
             self.params['text'] = text
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
+            return False
 
     def assertequals(self, param, value):
         """
@@ -357,9 +379,11 @@ class Web:
         if str(param) == str(value):
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(param))
+            return True
         else:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(param))
+            return False
 
     # 获取参数里面的值
     def __getparams(self, s):

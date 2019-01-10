@@ -49,7 +49,7 @@ class APP:
             logger.error('端口已被占用')
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, '端口已被占用')
-            return
+            return False
         else:
             # 启动appium
             cmd = 'node ' + path + '\\resources\\app\\node_modules\\appium\\build\\lib\\main.js -p ' + port
@@ -61,6 +61,7 @@ class APP:
                 t = 5
             time.sleep(t)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
 
     def runapp(self, c, t):
         """
@@ -106,7 +107,7 @@ class APP:
         # 设置隐式等待
         self.driver.implicitly_wait(t)
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
-        return self.driver
+        return True
 
     def close(self):
         """
@@ -119,6 +120,7 @@ class APP:
             pass
 
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        return True
 
     def __find_element(self, locator):
         """
@@ -151,10 +153,12 @@ class APP:
         try:
             ele.click()
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
+            return False
 
     def inputtext(self, locator, value):
         time.sleep(1)
@@ -162,10 +166,12 @@ class APP:
         try:
             ele.send_keys(value)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
+            return False
 
     def tryinput(self, locator, value):
         time.sleep(1)
@@ -176,6 +182,8 @@ class APP:
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+
+        return True
 
     def swipe(self, p1, p2):
         """
@@ -194,14 +202,17 @@ class APP:
 
             TouchAction(self.driver).press(x=x1, y=y1).move_to(x=x2, y=y2).release().perform()
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+            return True
         except Exception as e:
             logger.exception(e)
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(traceback.format_exc()))
+            return False
 
     def back(self):
         self.driver.back()
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        return True
 
     def sleep(self, t):
         try:
@@ -211,3 +222,4 @@ class APP:
 
         time.sleep(t)
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        return True

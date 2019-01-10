@@ -41,6 +41,7 @@ class SOAP:
         imp.filter.add(targetNamespace)
         self.doctor = ImportDoctor(imp)
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
+        return True
 
     # 设置描述文档地址
     def setwsdl(self, url):
@@ -49,11 +50,12 @@ class SOAP:
             self.client = Client(url, doctor=self.doctor, headers=self.header)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(self.jsonres))
-
+            return True
         except Exception as e:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(self.jsonres))
             logger.exception(e)
+            return False
 
     def addheader(self, key, value):
         value = self.__getparams(value)
@@ -62,11 +64,12 @@ class SOAP:
             self.client = Client(self.wsdlurl, doctor=self.doctor, headers=self.header)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(self.jsonres))
-
+            return True
         except Exception as e:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(self.jsonres))
             logger.exception(e)
+            return False
 
     def removeheader(self, key):
         try:
@@ -74,11 +77,12 @@ class SOAP:
             self.client = Client(self.wsdlurl, doctor=self.doctor, headers=self.header)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(self.jsonres))
-
+            return True
         except Exception as e:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(self.jsonres))
             logger.exception(e)
+            return False
 
     def callmethod(self, method, param=''):
         try:
@@ -94,11 +98,12 @@ class SOAP:
             self.jsonres = json.loads(self.result)
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(self.jsonres))
-
+            return True
         except Exception as e:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(self.jsonres))
             logger.exception(e)
+            return False
 
     # 定义断言相等的关键字，用来判断json的key对应的值和期望值相等
     def assertequals(self, jsonpaths, value):
@@ -117,9 +122,11 @@ class SOAP:
         if res == str(value):
             self.writer.write(self.writer.row, self.writer.clo, 'PASS')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(res))
+            return True
         else:
             self.writer.write(self.writer.row, self.writer.clo, 'FAIL')
             self.writer.write(self.writer.row, self.writer.clo + 1, str(res))
+            return False
 
     # 定义保存一个json值为参数的关键字
     def savejson(self, key, p):
@@ -133,6 +140,7 @@ class SOAP:
         self.params[p] = res
         self.writer.write(self.writer.row, self.writer.clo, 'PASS')
         self.writer.write(self.writer.row, self.writer.clo + 1, str(res))
+        return True
 
     # 获取参数里面的值
     def __getparams(self, s):
